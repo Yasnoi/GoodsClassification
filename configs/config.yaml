@@ -1,0 +1,9 @@
+data:
+  data_dir: 'data/'
+  train_csv_file: 'train.csv'
+  train_image_dir: 'train_images/'
+  test_csv_file: 'test.csv'
+  test_image_dir: 'test_images/'
+
+model:
+  batch_size: 128
