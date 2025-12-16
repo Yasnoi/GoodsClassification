@@ -9,12 +9,16 @@ class Net(nn.Module):
         super(Net, self).__init__()
 
         # Image Encoder
-        resnet = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
+        resnet = models.resnet50(weights=None)
+        local_weights_path = 'data/resnet50-11ad3fa6.pth'
+        state_dict = torch.load(local_weights_path)
+        resnet.load_state_dict(state_dict)
         self.image_encoder = nn.Sequential(*list(resnet.children())[:-1])
         # output dim 2048
 
         # Text Encoder
-        self.text_encoder = AutoModel.from_pretrained('distilbert-base-uncased')
+        local_bert_path = 'data/distilbert_local'
+        self.text_encoder = AutoModel.from_pretrained(local_bert_path)
         # output dim 768
 
         if freeze_backbone:

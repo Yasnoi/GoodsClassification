@@ -58,10 +58,10 @@ class GoodsDataset(Dataset):
 
         # return data as Dict
         return {
-            'image': image,
+            'images': image,
             'input_ids': encoding['input_ids'].flatten(),
             'attention_mask': encoding['attention_mask'].flatten(),
-            'label': torch.tensor(label, dtype=torch.long)
+            'labels': torch.tensor(label, dtype=torch.long)
         }
 
 
@@ -71,7 +71,8 @@ def data_loader(config, mode='train'):
 
     batch_size = config['model']['batch_size']
 
-    tokenizer = AutoTokenizer.from_pretrained('distilbert-base-uncased')
+    # tokenizer = AutoTokenizer.from_pretrained('distilbert-base-uncased')
+    tokenizer = AutoTokenizer.from_pretrained('data/distilbert_local')
 
     df = pd.read_csv(csv_path)
 
