@@ -1,0 +1,26 @@
+project_name: "sales_product_classification"
+
+data:
+  train_csv: "./data/train/train.csv"
+  train_img_dir: "./data/train/train_images"
+  test_csv: "./data/test/test.csv"
+  test_img_dir: "./data/test/test_images"
+  num_classes: 21
+  img_size: 224          # BLIP 标准输入
+  text_max_len: 64       # 标题+描述通常较短
+  num_workers: 8         # A800 CPU核心多，可以开大
+
+train:
+  model_name: "Salesforce/blip-image-captioning-base"
+  batch_size: 128        # 40G 显存可以开大 Batch，更稳
+  epochs: 15             # 全量微调需要多一点轮次
+  learning_rate: 2.0e-5  # 微调经典学习率
+  weight_decay: 0.05
+  seed: 42
+  label_smoothing: 0.1   # 抗过拟合，提升泛化能力
+
+output:
+  dir: "./outputs"
+  best_model_name: "best_blip_finetuned.pth"
+  submission_name: "submission.csv"
+  
